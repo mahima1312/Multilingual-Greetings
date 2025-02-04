@@ -1,20 +1,23 @@
 import './index.css'
 
 const LanguageList = props => {
-  const {languageList, isActive, onClickChangeLanguage} = props
-  const {id, buttonText} = languageList
-
-  const changeImageUrl = () => {
-    onClickChangeLanguage(id)
+  const {onClickLanguage, language, isActive} = props
+  const {id, buttonText} = language
+  const activeLanguage = isActive ? 'active-btn' : 'btn'
+  const onClickChangeLanguage = () => {
+    onClickLanguage(id)
   }
-  const btnClassName = isActive ? 'active-btn' : 'btn'
-
   return (
     <li className="list">
-      <button className={btnClassName} onClick={changeImageUrl} type="button">
+      <button
+        type="button"
+        className={activeLanguage}
+        onClick={onClickChangeLanguage}
+      >
         {buttonText}
       </button>
     </li>
   )
 }
+
 export default LanguageList

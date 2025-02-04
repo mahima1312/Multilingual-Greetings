@@ -1,6 +1,7 @@
 import {Component} from 'react'
 
 import './App.css'
+
 import LanguageList from './components/LanguageList'
 
 const languageGreetingsList = [
@@ -30,43 +31,46 @@ const languageGreetingsList = [
 class App extends Component {
   state = {activeLanguage: languageGreetingsList[0].id}
 
-  onClickChangeLanguage = id => {
+  onClickLanguage = id => {
     this.setState({activeLanguage: id})
   }
 
-  getImageUrl = id => {
-    const respectiveObject = languageGreetingsList.find(
-      eachLanguage => eachLanguage.id === id,
+  getImage = id => {
+    const image = languageGreetingsList.find(
+      eachLangauge => eachLangauge.id === id,
     )
-    return respectiveObject
+    return image
   }
 
   render() {
     const {activeLanguage} = this.state
-    const respectiveObject = this.getImageUrl(activeLanguage)
+    const image = this.getImage(activeLanguage)
+
     return (
-      <div className="app-container">
-        <h1>Multilingual Greetings</h1>
-        <ul className="list-container">
-          {languageGreetingsList.map(eachLanguage => (
-            <LanguageList
-              key={eachLanguage.id}
-              languageList={eachLanguage}
-              onClickChangeLanguage={this.onClickChangeLanguage}
-              isActive={activeLanguage === eachLanguage.id}
+      <div className="main-container">
+        <div className="app-container">
+          <h1>Multilingual Greeting</h1>
+          <ul className="list-container">
+            {languageGreetingsList.map(eachLanguage => (
+              <LanguageList
+                className=""
+                key={eachLanguage.id}
+                language={eachLanguage}
+                onClickLanguage={this.onClickLanguage}
+                isActive={activeLanguage === eachLanguage.id}
+              />
+            ))}
+          </ul>
+          <div className="img-container">
+            <img
+              className="img"
+              src={image.imageUrl}
+              alt={image.imageAltText}
             />
-          ))}
-        </ul>
-        <div className="img-container">
-          <img
-            className="img"
-            src={respectiveObject.imageUrl}
-            alt={respectiveObject.imageAltText}
-          />
+          </div>
         </div>
       </div>
     )
   }
 }
-
 export default App
